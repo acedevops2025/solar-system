@@ -145,10 +145,20 @@ jobs:
             with:
                 version: 'v1.26.0'
 
-          - name: Install gke-gcloud-auth-plugin
-            run: |
-                sudo apt-get update
-                sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
+          - name: Authenticate to Google
+            uses: "google-github-actions/auth@v2"
+            with:
+                credentials_json: "${{ secrets.GCP_SERVICEACCOUNT_KEY }}"
+        
+          - uses: "google-github-actions/setup-gcloud@v2"
+            with:
+                install_components: "gke-gcloud-auth-plugin"
+        
+          - name: Authenticate to GKE cluster
+            uses: google-github-actions/get-gke-credentials@v2
+            with:
+                cluster_name: my-std-gke-cluster
+                location: us-central1-c
 
           - name: setup KUBECONFIG context
             uses: azure/k8s-set-context@v3
