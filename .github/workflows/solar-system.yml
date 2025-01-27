@@ -46,8 +46,42 @@ jobs:
             name: Mocha-Test-Result
             path: test-results.xml
 
+    code-coverage:
+        name: code coverage
+        container:
+            image: node:18
+        services:
+            mongo-db:
+                image: siddharth67/mongo-db:non-prod
+                options:
+                    --name mongo
+        env:
+            MONGO_URI: 'mongodb://mango:27017/superData'
+            MONGO_USERNAME: non-prod-user
+            MONGO_PASSWORD: non-prod-password
+        runs-on: ubuntu-latest
+        steps:
+        - 
+            name: checkout-repo
+            uses: actions/checkout@v4
+
+        - 
+            name: Cache NPM dependencies
+            uses: actions/cache@v3
+            with:
+                path: node_modules
+                key: $${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json')}}
+
+        - 
+            name: Install Dependencies
+            run: npm install
+
+        - 
+            name: Unit Testing
+            run: npm test
+
     docker:
-        needs: [unit-testing]
+        needs: [unit-testing, code-coverage]
         permissions:
             packages: write
         name: Containerization
