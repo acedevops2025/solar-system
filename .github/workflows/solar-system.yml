@@ -137,10 +137,10 @@ jobs:
         if: contains(github.ref, 'feature')
         needs: docker
         uses: acedevops2025/solar-system/.github/workflows/reuse-deployment.yml@main
-        secrets:
-            k8s-kubeconfig: ${{ secrets.KUBECONFIG }}
-            mongodb-password: ${{ secrets.MONGO_PASSWORD }}
-            sa-jsonkey: ${{ secrets.GCP_SERVICEACCOUNT_KEY }}
+        secrets: inherit
+            #k8s-kubeconfig: ${{ secrets.KUBECONFIG }}
+            #mongodb-password: ${{ secrets.MONGO_PASSWORD }}
+            #sa-jsonkey: ${{ secrets.GCP_SERVICEACCOUNT_KEY }}
             
     dev-integration-testing:
         if: contains(github.ref, 'feature')
@@ -160,10 +160,10 @@ jobs:
         if: github.ref == 'refs/heads/main'
         needs: docker
         uses: acedevops2025/solar-system/.github/workflows/reuse-deployment.yml@main
-        secrets:
-            k8s-kubeconfig: ${{ secrets.KUBECONFIG }}
-            mongodb-password: ${{ secrets.MONGO_PASSWORD }}
-            sa-jsonkey: ${{ secrets.GCP_SERVICEACCOUNT_KEY }}
+        secrets: inherit
+            #k8s-kubeconfig: ${{ secrets.KUBECONFIG }}
+            #mongodb-password: ${{ secrets.MONGO_PASSWORD }}
+            #sa-jsonkey: ${{ secrets.GCP_SERVICEACCOUNT_KEY }}
         
     prod-integration-testing:
         if: github.ref == 'refs/heads/main'
