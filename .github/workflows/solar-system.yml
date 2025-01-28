@@ -296,7 +296,7 @@ jobs:
             with:
                 tokenPrefix: '${'
                 tokenSuffix: '}'
-                files: '["kubernetes/production/*.yaml"]'
+                files: '["kubernetes/staging/*.yaml"]'
             env:
                 NAMESPACE: ${{ vars.NAMESPACE }}
                 REPLICAS: ${{ vars.REPLICAS }}
@@ -306,7 +306,7 @@ jobs:
         - 
             name: Check files
             run: |
-                cat kubernetes/production/*.yaml
+                cat kubernetes/staging/*.yaml
 
         - 
             name: Create MangoDB secret
@@ -322,7 +322,7 @@ jobs:
         - 
             name: Deploy to Dev Env
             run: |
-                kubectl apply -f kubernetes/production/  
+                kubectl apply -f kubernetes/staging/  
 
         -  
             name: Set App Ingress Host URL
