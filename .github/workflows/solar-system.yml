@@ -138,6 +138,8 @@ jobs:
         needs: docker
         uses: acedevops2025/solar-system/.github/workflows/reuse-deployment.yml@main
         secrets: inherit
+        with:
+            mongodb-uri: ${{ vars.MONGO_URI }}
             #k8s-kubeconfig: ${{ secrets.KUBECONFIG }}
             #mongodb-password: ${{ secrets.MONGO_PASSWORD }}
             #sa-jsonkey: ${{ secrets.GCP_SERVICEACCOUNT_KEY }}
@@ -161,6 +163,8 @@ jobs:
         needs: docker
         uses: acedevops2025/solar-system/.github/workflows/reuse-deployment.yml@main
         secrets: inherit
+        with:
+            mongodb-uri: ${{ vars.MONGO_URI }}
             #k8s-kubeconfig: ${{ secrets.KUBECONFIG }}
             #mongodb-password: ${{ secrets.MONGO_PASSWORD }}
             #sa-jsonkey: ${{ secrets.GCP_SERVICEACCOUNT_KEY }}
